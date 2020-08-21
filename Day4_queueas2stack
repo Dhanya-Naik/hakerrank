@@ -1,0 +1,29 @@
+#In this challenge, you must first implement a queue using two stacks. Then process  queries, where each query is one of the following  types:
+#1: Enqueue element  into the end of the queue.
+#2: Dequeue the element at the front of the queue.
+#3: Print the element at the front of the queue.
+
+
+
+s1=[]
+reverse=[]
+t=int(input())
+while t:
+    nd=list(map(int,input().split()))
+    if nd[0] ==1:
+        if not s1 :
+            first=nd[1]
+        s1.append(nd[1])
+    elif nd[0] ==2:
+        if not reverse :
+            #revese s1 to pop first element(consider list as stack)
+            while s1: reverse.append(s1.pop())    
+        reverse.pop()
+    else:
+        if reverse :
+            #if we poped element already then take last elment from reversed list
+            print(reverse[-1])
+        else:
+            #otherwise, take first added element
+            print(first)
+    t-=1   
