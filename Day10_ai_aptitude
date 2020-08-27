@@ -1,0 +1,35 @@
+#A college admits students on the basis of their scores in a series of 5 aptitude tests. The academic performance of the admitted students is then tracked, and when they complete the first year of their academic program in college, their Grade Point Average (GPA) is recorded. A student's GPA is an indicator of his/her academic performance. Higher the GPA, the better. This exercise is conducted on one batch of students. Absolute GPA is used for this problem.
+
+#The next year, the college realizes that it does not have the necessary resources to conduct all 5 aptitude tests, it decides to conduct only 1 of the 5 tests. Which of the aptitude tests would you recommend them to conduct for the next round of admissions?
+
+#You are given the recorded data. Identify the aptitude test which has clearly the best predictive value in determining the relative academic standing of the students after they enter the college.
+#Input Format
+#The 1st line in the file is an integer T, T testcases follow.
+#Each testcase has 7 lines.
+#The 1st line of every testcase contains the number of admitted students, N.
+#The 2nd line of every testcase has N decimal numbers (upto 2 decimal places) separated by a single space which are the Grade Point Averages (GPAs) of the admitted students at the end of the 1st academic year. The ith score, is the GPA of the ith student at the end of the 1st year.
+#This next 5 lines of every testcase has N decimal numbers ( upto 2 decimal places) separated by a single space in each line, which is the performance of the students in the 5 aptitude tests conducted for the entrance exam. The ith integer in each line, is what the ith student scored in that aptitude test.
+
+
+
+
+
+
+
+import numpy as np
+from sklearn.feature_selection import RFE
+from sklearn.linear_model import LinearRegression
+
+T = int(input())
+
+for _ in range(T):
+    estimator = LinearRegression()
+    selector = RFE(estimator, n_features_to_select=1, step=1, verbose=0)
+
+    N = int(input())
+    y = np.array(input().split(), float)
+    X = np.array([input().split() for _ in range(5)], float)
+
+    selector.fit(X.T, y.T)
+
+    print(np.argmin(selector.ranking_) + 1)
